@@ -13,6 +13,8 @@
     <script src="js/OrbitControls.js"></script>
 
     <script>
+      (function(){var script=document.createElement('script');script.onload=function(){var stats=new Stats();document.body.appendChild(stats.dom);requestAnimationFrame(function loop(){stats.update();requestAnimationFrame(loop)});};script.src='//rawgit.com/mrdoob/stats.js/master/build/stats.min.js';document.head.appendChild(script);})()
+
       var scene = new THREE.Scene();
       var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
@@ -30,7 +32,7 @@
 
       controls = new THREE.OrbitControls(camera, renderer.domElement);
       // CREATE THE SHAPE
-      var geometry = new THREE.BoxGeometry( 2, 2, 2 );
+      var geometry = new THREE.BoxGeometry( 1.5, 1.5, 1.5 );
       var cubeMaterials = [
         // new THREE.MeshBasicMaterial({color: 0xFFFFFF, side: THREE.DoubleSide}),
         // Right
@@ -97,11 +99,11 @@
       light1.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: c1 } ) ) );
       scene.add(light1);
 
-      var light2 = new THREE.PointLight(0x0040FF, 1, 50);
+      var light2 = new THREE.PointLight(0x0040FF, 3, 50);
       light2.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: c2 } ) ) );
       scene.add(light2);
 
-      var light3 = new THREE.PointLight(0x80FF80, 1, 50);
+      var light3 = new THREE.PointLight(0x80FF80, 3, 50);
       light3.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: c3 } ) ) );
       scene.add(light3);
 
