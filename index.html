@@ -11,6 +11,7 @@
   <body>
     <script src="js/three.js"></script>
     <script src="js/OrbitControls.js"></script>
+
     <script>
       var scene = new THREE.Scene();
       var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -85,18 +86,24 @@
       scene.add(rightWallCube);
 
       // AMBIENT LIGHTING
-      var ambientLight = new THREE.AmbientLight( 0xFFFFFF, 1.5 );
+      var ambientLight = new THREE.AmbientLight(0xFFFFFF, 1.5);
       // scene.add(ambientLight);
 
-      // POINT LIGHTING
-      var light1 = new THREE.PointLight(0xFF0040, 2, 50);
-      // scene.add(light1);
+      // POINT LIGHTING W/ SPRITES
+      var sphere = new THREE.SphereGeometry( 0.25, 16, 8 );
+      var c1 = 0xff0040 ,c2 = 0x0040ff, c3 = 0x80ff80;
 
-      var light2 = new THREE.PointLight(0x0040FF, 1.5, 50);
-      // scene.add(light2);
+      var light1 = new THREE.PointLight(0xFF0040, 3, 50);
+      light1.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: c1 } ) ) );
+      scene.add(light1);
 
-      var light3 = new THREE.PointLight(0x80FF80, 1.05, 50);
-      // scene.add(light3);
+      var light2 = new THREE.PointLight(0x0040FF, 1, 50);
+      light2.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: c2 } ) ) );
+      scene.add(light2);
+
+      var light3 = new THREE.PointLight(0x80FF80, 1, 50);
+      light3.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: c3 } ) ) );
+      scene.add(light3);
 
       // DIRECTIONAL LIGHTING
       var directionalLight = new THREE.DirectionalLight(0xFFFFFF, 1);
@@ -106,28 +113,27 @@
       // SPOT LIGHTING
       var spotLight = new THREE.SpotLight(0xFF45F6, 5);
       spotLight.position.set(0, 3, 0);
-      scene.add(spotLight);
+      // scene.add(spotLight);
 
       // SCENE LOGIC
       var update = function() {
         cube.rotation.x += 0.01;
         cube.rotation.y += 0.005;
 
-
         var time = Date.now() * 0.0005;
 
         // LIGHTING POSITIONS
-        light1.position.x = Math.sin(time * 0.7) * 30;
-        light1.position.y = Math.cos(time * 0.5) * 40;
-        light1.position.z = Math.cos(time * 0.3) * 30;
+        light1.position.x = Math.sin(time * 0.7) * 10;
+        light1.position.y = Math.cos(time * 0.5) * 20;
+        light1.position.z = Math.cos(time * 0.3) * 10;
 
-        light2.position.x = Math.cos(time * 0.3) * 30;
-        light2.position.y = Math.sin(time * 0.5) * 40;
-        light2.position.z = Math.sin(time * 0.7) * 30;
+        light2.position.x = Math.cos(time * 0.3) * 10;
+        light2.position.y = Math.sin(time * 0.5) * 20;
+        light2.position.z = Math.sin(time * 0.7) * 10;
 
-        light3.position.x = Math.sin(time * 0.7) * 30;
-        light3.position.y = Math.cos(time * 0.3) * 40;
-        light3.position.z = Math.sin(time * 0.5) * 30;
+        light3.position.x = Math.sin(time * 0.7) * 10;
+        light3.position.y = Math.cos(time * 0.3) * 20;
+        light3.position.z = Math.sin(time * 0.5) * 10;
       };
 
       // DRAW SCENE
@@ -136,13 +142,13 @@
       };
 
       // RUN SCENE LOOP (UPDATE, RENDER, REPEAT)
-      var GameLoop = function() {
-        requestAnimationFrame(GameLoop);
+      var SceneLoop = function() {
+        requestAnimationFrame(SceneLoop);
         update();
         render();
       }
 
-      GameLoop();
+      SceneLoop();
     </script>
   </body>
 </html>
